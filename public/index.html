@@ -19,12 +19,12 @@
       </select>
     </p>
     <p>
-      <button @click="getData">GET</button>
+      <button id="get">GET</button>
       <button @click="postData">POST</button>
       <button @click="putData">PUT</button>
       <button @click="deleteData">DELETE</button>
     </p>
-    <p>{{data}}</p>
+    <p id="result">レスポンスデータに置き換わります</p>
   </body>
 
   <script>
@@ -34,8 +34,14 @@
         name: '',
         rank: '',
 
+        // 各ボタンと関数の紐づけ
+        document.getElementById('get').addEventListener('click', getData);
+
+        // レスポンス表示用のp要素
+        const result = document.getElementById('result');
+
         // GETリクエスト
-        async getData() {
+        async function getData() {
           const res = await fetch('/api');
           const data = await res.json();
           this.data = JSON.stringify(data, null, 2);
