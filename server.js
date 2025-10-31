@@ -1,0 +1,12 @@
+import { Hono } from 'jsr:@hono/hono';
+import { serveStatic } from 'jsr:@hono/hono/deno';
+const app = new Hono();
+
+app.use('/*', serveStatic({ root: './public' }));
+
+// GETリクエストに対する処理
+app.get('/api', async (c) => {
+  return c.json({ message: 'GET' });
+});
+
+Deno.serve(app.fetch);
